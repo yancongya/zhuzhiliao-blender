@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="竹知了 Blender 5.2 几何节点案例：绳系物理、惯性、弹性、翅膀动画与动作声音触发。">
+  <meta property="og:title" content="竹知了 · 宇宙最好用的开源软件">
+  <meta property="og:description" content="一份能拆、能改、能复用的 Blender 几何节点竹知了。">
+  <meta property="og:image" content="hero.png">
+  <title>竹知了 · Blender 几何节点案例</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="controls.css">
+</head>
+<body>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="返回顶部"><span>竹</span> 竹知了 / Blender</a>
+    <nav aria-label="主导航">
+      <a href="#principle">工作原理</a>
+      <a href="#modules">可复用模块</a>
+      <a class="nav-cta" href="zhuzhiliao_rebuild_v1.blend" download>下载 .blend</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">OPEN SOURCE · BLENDER 5.2</p>
+        <h1>宇宙最好用的<br><em>开源软件。</em></h1>
+        <p class="lede">小时候甩着会叫的竹知了，被重新做成了一套可以拆解、调参和复用的几何节点系统。</p>
+        <div class="actions">
+          <a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download>下载最终案例</a>
+          <a class="button secondary" href="https://github.com/imsai-sh/zhuzhiliao">查看参考项目 ↗</a>
+        </div>
+        <ul class="facts" aria-label="项目特性">
+          <li><strong>纯节点物理</strong><span>Simulation Zone</span></li>
+          <li><strong>动作发声</strong><span>一次动作，一次触发</span></li>
+          <li><strong>模块可拆</strong><span>资产与案例分离</span></li>
+        </ul>
+      </div>
+      <figure class="hero-visual">
+        <img src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画">
+        <figcaption><span>LIVE SIMULATION</span> Blender 透明循环渲染</figcaption>
+      </figure>
+    </section>
+
+    <section class="marquee" aria-label="核心能力">
+      <div>惯性 · 弹性 · 重力 · 刚性绳长 · 翅膀扇动 · 动作声音 · 几何节点 · 惯性 · 弹性 · 重力 · 刚性绳长 · 翅膀扇动 · 动作声音 · 几何节点</div>
+    </section>
+
+    <section id="principle" class="section shell">
+      <header class="section-head">
+        <p class="eyebrow">HOW IT WORKS</p>
+        <h2>不是让知了跟着杆走。<br>是让它有自己的脾气。</h2>
+      </header>
+      <div class="principle-grid">
+        <article class="step dark"><b>01</b><h3>移动锚点</h3><p>甩杆末端只提供动态锚点。跨帧位移形成速度，速度才会产生真正的甩动。</p></article>
+        <article class="step lime"><b>02</b><h3>保存状态</h3><p>Simulation Zone 记住上一帧的位置和速度，逐帧积累惯性，而不是播放一段假动画。</p></article>
+        <article class="step warm"><b>03</b><h3>绳子只拉不推</h3><p>超过绳长才施加回拉；需要时再投影到固定半径，兼顾弹性和可控性。</p></article>
+        <article class="step paper"><b>04</b><h3>一次动作，一次声音</h3><p>声音与节点解耦。摇杆从静止进入运动时触发，持续晃动不叠音，停下后才重新待命。</p></article>
+      </div>
+    </section>
+
+    <section class="diagram-section">
+      <div class="shell diagram-grid">
+        <div>
+          <p class="eyebrow">THE LOOP</p>
+          <h2>每一帧，都把运动重新算一遍。</h2>
+          <p>摇杆影响锚点，锚点影响绳子，绳子影响速度，速度决定下一帧。翅膀和声音从同一动作获得信号，却保持独立模块。</p>
+        </div>
+        <div class="flow" role="img" aria-label="摇杆到声音和画面的工作流">
+          <span>摇杆变换</span><i>→</i><span>锚点速度</span><i>→</i><span>弹性与约束</span><i>→</i><span>位置 / 速度</span>
+          <small>↘ 翅膀响应</small><small>↘ 声音边沿触发</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls-section shell" id="controls">
+      <header class="section-head compact">
+        <p class="eyebrow">TUNE THE FEEL</p>
+        <h2>不是一个动画文件。<br>是一套可以调手感的系统。</h2>
+      </header>
+      <div class="controls-layout">
+        <figure class="ui-shot"><img src="controls-panel.png" alt="Blender 几何节点修改器控制面板"><figcaption>所有常用参数集中在一个修改器中</figcaption></figure>
+        <div class="parameter-list">
+          <article><b>绳长</b><span>控制活动半径</span><em>0.79 m</em></article>
+          <article><b>重力</b><span>控制下坠和恢复方向</span><em>0.08</em></article>
+          <article><b>刚度 × 弹性</b><span>决定硬绳还是软弹力绳</span><em>55 × 1.0</em></article>
+          <article><b>阻尼</b><span>决定惯性保留多久</span><em>0.30</em></article>
+          <article><b>锁定绳长</b><span>切换弹性约束与固定半径</span><em>ON / OFF</em></article>
+          <article><b>扇动</b><span>独立控制开关、速度与幅度</span><em>7.0 / 20°</em></article>
+          <article><b>声音触发</b><span>动作开始响一次，持续移动不叠音</span><em>阈值 / 冷却</em></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="node-proof">
+      <div class="shell node-proof-grid">
+        <div class="node-copy"><p class="eyebrow">LOOK INSIDE</p><h2>力不是猜出来的。<br>每一项都在线路里。</h2><p>弹性绳模块先计算锚点到质点的方向和伸长量，再把刚度、弹性倍率与阻尼组合成回拉加速度，最后叠加重力。模块只有明确的输入与一个加速度输出，因此可以脱离竹知了，在吊坠、尾巴、挂件和摆锤中复用。</p></div>
+        <figure class="node-shot"><img src="node-elastic-rope.png" alt="GN 弹性绳加速度节点组截图"><figcaption>GN_弹性绳加速度 · 16 节点 / 23 条连接</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="modules" class="section shell">
+      <header class="section-head compact">
+        <p class="eyebrow">REUSABLE BY DESIGN</p>
+        <h2>案例是一整只知了。<br>资产是能带走的办法。</h2>
+      </header>
+      <div class="module-list">
+        <article><span>GN</span><h3>锚点速度</h3><p>从跨帧位置变化提取速度。</p></article>
+        <article><span>GN</span><h3>弹性绳加速度</h3><p>计算只拉不推的回弹作用力。</p></article>
+        <article><span>GN</span><h3>可选刚性绳约束</h3><p>一键切换自由绳长和固定半径。</p></article>
+        <article><span>GN</span><h3>翅膀扇动</h3><p>独立控制启停、速度与幅度。</p></article>
+        <article><span>PY</span><h3>声音触发器</h3><p>识别新动作，避免连续叠音。</p></article>
+      </div>
+    </section>
+
+    <section class="credit shell">
+      <div><p class="eyebrow">REFERENCE & CREDIT</p><h2>从浏览器里的竹知了，<br>走进 Blender 的节点世界。</h2></div>
+      <div><p>玩具主题、交互方向与物理说明参考开源展示项目 <a href="https://github.com/imsai-sh/zhuzhiliao">imsai-sh/zhuzhiliao ↗</a>。本项目没有复制其真实录音或 Web 源码，Blender 模型、节点系统与声音模块均为独立实现。</p><p class="legal">参考仓库当前未提供独立 LICENSE 文件；使用其内容前请自行确认授权。</p></div>
+    </section>
+
+    <section class="final-cta">
+      <div class="shell">
+        <p class="eyebrow">DOWNLOAD · OPEN · SHAKE</p>
+        <h2>把它甩起来。</h2>
+        <a class="button primary inverted" href="zhuzhiliao_rebuild_v1.blend" download>下载 Blender 最终案例</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell"><span>竹知了 Blender Case · 2026</span><a href="README.md">README</a></footer>
+</body>
+</html>

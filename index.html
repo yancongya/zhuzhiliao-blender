@@ -9,6 +9,7 @@
   <meta property="og:image" content="hero.png">
   <title>竹知了 · Blender 几何节点案例</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="controls.css">
 </head>
 <body>
   <header class="nav shell">
@@ -70,6 +71,32 @@
           <span>摇杆变换</span><i>→</i><span>锚点速度</span><i>→</i><span>弹性与约束</span><i>→</i><span>位置 / 速度</span>
           <small>↘ 翅膀响应</small><small>↘ 声音边沿触发</small>
         </div>
+      </div>
+    </section>
+
+    <section class="controls-section shell" id="controls">
+      <header class="section-head compact">
+        <p class="eyebrow">TUNE THE FEEL</p>
+        <h2>不是一个动画文件。<br>是一套可以调手感的系统。</h2>
+      </header>
+      <div class="controls-layout">
+        <figure class="ui-shot"><img src="controls-panel.png" alt="Blender 几何节点修改器控制面板"><figcaption>所有常用参数集中在一个修改器中</figcaption></figure>
+        <div class="parameter-list">
+          <article><b>绳长</b><span>控制活动半径</span><em>0.79 m</em></article>
+          <article><b>重力</b><span>控制下坠和恢复方向</span><em>0.08</em></article>
+          <article><b>刚度 × 弹性</b><span>决定硬绳还是软弹力绳</span><em>55 × 1.0</em></article>
+          <article><b>阻尼</b><span>决定惯性保留多久</span><em>0.30</em></article>
+          <article><b>锁定绳长</b><span>切换弹性约束与固定半径</span><em>ON / OFF</em></article>
+          <article><b>扇动</b><span>独立控制开关、速度与幅度</span><em>7.0 / 20°</em></article>
+          <article><b>声音触发</b><span>动作开始响一次，持续移动不叠音</span><em>阈值 / 冷却</em></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="node-proof">
+      <div class="shell node-proof-grid">
+        <div class="node-copy"><p class="eyebrow">LOOK INSIDE</p><h2>力不是猜出来的。<br>每一项都在线路里。</h2><p>弹性绳模块先计算锚点到质点的方向和伸长量，再把刚度、弹性倍率与阻尼组合成回拉加速度，最后叠加重力。模块只有明确的输入与一个加速度输出，因此可以脱离竹知了，在吊坠、尾巴、挂件和摆锤中复用。</p></div>
+        <figure class="node-shot"><img src="node-elastic-rope.png" alt="GN 弹性绳加速度节点组截图"><figcaption>GN_弹性绳加速度 · 16 节点 / 23 条连接</figcaption></figure>
       </div>
     </section>
 

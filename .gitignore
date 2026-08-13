@@ -1,0 +1,11 @@
+# This release repository deliberately tracks only the current approved case.
+*
+!.gitignore
+!README.md
+!LICENSE
+!index.html
+!styles.css
+!hero.png
+!zhuzhiliao_rebuild_v1.blend
+!zhuzhiliao_sound_trigger.py
+!zhuzhiliao-move.wav

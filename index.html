@@ -59,15 +59,18 @@
         </ul>
       </div>
       <figure class="hero-visual">
-        <div class="hero-loop" id="heroLoop" style="--split:50">
-          <img class="loop-a" src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 正向视角" loading="eager">
-          <img class="loop-b" src="zhuzhiliao-loop-b.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 侧向视角" loading="eager">
-          <span class="loop-tag tag-a">正向视角</span>
-          <span class="loop-tag tag-b">侧向视角</span>
-          <div class="loop-divider" aria-hidden="true"><span class="loop-grip"></span></div>
+        <div class="hero-loop" id="heroLoop" style="--pos:0">
+          <div class="hero-track">
+            <div class="slide"><img class="loop-a" src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 正向视角" loading="eager"><span class="loop-tag">正向视角</span></div>
+            <div class="slide"><img class="loop-b" src="zhuzhiliao-loop-b.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 侧向视角" loading="eager"><span class="loop-tag">侧向视角</span></div>
+          </div>
+          <div class="loop-dots" role="tablist" aria-label="切换视角">
+            <button class="dot active" data-i="0" aria-label="正向视角"></button>
+            <button class="dot" data-i="1" aria-label="侧向视角"></button>
+          </div>
           <span class="loop-hint">← 拖我切换 →</span>
         </div>
-        <figcaption><span>LIVE SIMULATION</span> 双视角循环渲染 · 拖动分隔线切换</figcaption>
+        <figcaption><span>LIVE SIMULATION</span> 双视角循环渲染 · 滑动切换</figcaption>
       </figure>
     </section>
 
@@ -360,55 +363,62 @@
       els.forEach(function (el) { io.observe(el); });
     })();
 
-    // 6. Hero 双视角叠加拖拽切换
+    // 6. Hero 双视角滑动切换（轮播式，整张滑过，非擦除对比）
     (function () {
       var el = document.getElementById('heroLoop');
       if (!el) return;
-      function setSplit(pct) {
-        pct = Math.max(0, Math.min(100, pct));
-        el.style.setProperty('--split', pct.toFixed(1));
+      var dots = Array.prototype.slice.call(el.querySelectorAll('.loop-dots .dot'));
+      var pos = 0; // 0 = 正向, 1 = 侧向
+      function setPos(p, animate) {
+        pos = Math.max(0, Math.min(1, p));
+        el.classList.toggle('dragging', !animate); // 拖动时关过渡，吸附时开过渡
+        el.style.setProperty('--pos', pos.toFixed(4));
+        var idx = Math.round(pos);
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+        el.setAttribute('aria-valuenow', idx);
       }
-      function fromX(clientX) {
-        var r = el.getBoundingClientRect();
-        return ((clientX - r.left) / r.width) * 100;
-      }
-      var dragging = false;
+      function snap() { setPos(Math.round(pos), true); }
+      var dragging = false, startX = 0, startPos = 0, width = 1;
       function down(e) {
-        dragging = true;
+        dragging = true; startX = e.clientX; startPos = pos;
+        width = el.getBoundingClientRect().width || 1;
         el.classList.add('dragging', 'touched');
         el.setPointerCapture && el.setPointerCapture(e.pointerId);
-        setSplit(fromX(e.clientX));
         e.preventDefault();
       }
       function move(e) {
         if (!dragging) return;
-        setSplit(fromX(e.clientX));
+        var dx = (e.clientX - startX) / width; // 右拖为正
+        setPos(startPos - dx, false); // 右拖回到上一张
       }
       function up() {
         if (!dragging) return;
         dragging = false;
         el.classList.remove('dragging');
-        var v = parseFloat(el.style.getPropertyValue('--split')) || 50;
-        // 接近两端/中间时吸附，手感更稳
-        var snap = [0, 50, 100].reduce(function (best, n) {
-          return Math.abs(n - v) < Math.abs(best - v) ? n : best;
-        }, 50);
-        if (Math.abs(snap - v) < 6) setSplit(snap);
+        snap();
       }
       el.addEventListener('pointerdown', down);
       el.addEventListener('pointermove', move);
       window.addEventListener('pointerup', up);
-      // 键盘可达性：聚焦后可左右键切换
+      // 圆点点击切换
+      dots.forEach(function (d) {
+        d.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          el.classList.remove('dragging');
+          setPos(parseFloat(d.dataset.i), true);
+          el.classList.add('touched');
+        });
+      });
+      // 键盘可达性：左右键整张切换
       el.tabIndex = 0;
-      el.setAttribute('role', 'slider');
-      el.setAttribute('aria-label', '切换竹知了正向与侧向视角');
+      el.setAttribute('role', 'group');
+      el.setAttribute('aria-label', '竹知了正向/侧向视角，左右方向键切换');
       el.setAttribute('aria-valuemin', '0');
-      el.setAttribute('aria-valuemax', '100');
+      el.setAttribute('aria-valuemax', '1');
       el.addEventListener('keydown', function (e) {
-        var v = parseFloat(el.style.getPropertyValue('--split')) || 50;
-        if (e.key === 'ArrowLeft') { setSplit(v - 8); e.preventDefault(); }
-        else if (e.key === 'ArrowRight') { setSplit(v + 8); e.preventDefault(); }
-        el.setAttribute('aria-valuenow', (parseFloat(el.style.getPropertyValue('--split')) || 50).toFixed(0));
+        if (e.key === 'ArrowLeft') { setPos(0, true); e.preventDefault(); }
+        else if (e.key === 'ArrowRight') { setPos(1, true); e.preventDefault(); }
+        el.classList.add('touched');
       });
     })();
   </script>

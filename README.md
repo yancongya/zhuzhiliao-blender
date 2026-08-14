@@ -5,6 +5,7 @@
 一个可拆解、可调参、可继续炼化为节点资产的 Blender 5.2 竹知了案例。摇动甩杆后，知了通过绳系物理产生跟随、惯性和弹性；翅膀可以独立启停和调速；每次新的摇动动作还可以触发一次声音。
 
 ![竹知了 Blender 循环动画](zhuzhiliao-loop.webp)
+![竹知了 Blender 循环动画 · 侧向视角](zhuzhiliao-loop-b.webp)
 
 ## 下载和打开
 
@@ -93,7 +94,8 @@ Geometry Nodes 负责画面和物理，Python 模块负责实时声音。脚本�
 ├── index.html                       # GitHub Pages 落地页
 ├── styles.css                      # 页面样式
 ├── hero.png                        # Blender 实际渲染封面
-├── zhuzhiliao-loop.webp            # 透明循环展示动画
+├── zhuzhiliao-loop.webp            # 透明循环展示动画 · 正向视角
+├── zhuzhiliao-loop-b.webp          # 透明循环展示动画 · 侧向视角
 ├── node-elastic-rope.png           # 弹性绳节点结构截图
 ├── controls-panel.png              # 修改器参数截图
 ├── zhuzhiliao_rebuild_v1.blend     # 唯一发布的最终案例

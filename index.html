@@ -59,8 +59,15 @@
         </ul>
       </div>
       <figure class="hero-visual">
-        <img src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画" loading="eager">
-        <figcaption><span>LIVE SIMULATION</span> Blender 透明循环渲染</figcaption>
+        <div class="hero-loop" id="heroLoop" style="--split:50">
+          <img class="loop-a" src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 正向视角" loading="eager">
+          <img class="loop-b" src="zhuzhiliao-loop-b.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画 · 侧向视角" loading="eager">
+          <span class="loop-tag tag-a">正向视角</span>
+          <span class="loop-tag tag-b">侧向视角</span>
+          <div class="loop-divider" aria-hidden="true"><span class="loop-grip"></span></div>
+          <span class="loop-hint">← 拖我切换 →</span>
+        </div>
+        <figcaption><span>LIVE SIMULATION</span> 双视角循环渲染 · 拖动分隔线切换</figcaption>
       </figure>
     </section>
 
@@ -351,6 +358,58 @@
         });
       }, { threshold: 0.18 });
       els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // 6. Hero 双视角叠加拖拽切换
+    (function () {
+      var el = document.getElementById('heroLoop');
+      if (!el) return;
+      function setSplit(pct) {
+        pct = Math.max(0, Math.min(100, pct));
+        el.style.setProperty('--split', pct.toFixed(1));
+      }
+      function fromX(clientX) {
+        var r = el.getBoundingClientRect();
+        return ((clientX - r.left) / r.width) * 100;
+      }
+      var dragging = false;
+      function down(e) {
+        dragging = true;
+        el.classList.add('dragging', 'touched');
+        el.setPointerCapture && el.setPointerCapture(e.pointerId);
+        setSplit(fromX(e.clientX));
+        e.preventDefault();
+      }
+      function move(e) {
+        if (!dragging) return;
+        setSplit(fromX(e.clientX));
+      }
+      function up() {
+        if (!dragging) return;
+        dragging = false;
+        el.classList.remove('dragging');
+        var v = parseFloat(el.style.getPropertyValue('--split')) || 50;
+        // 接近两端/中间时吸附，手感更稳
+        var snap = [0, 50, 100].reduce(function (best, n) {
+          return Math.abs(n - v) < Math.abs(best - v) ? n : best;
+        }, 50);
+        if (Math.abs(snap - v) < 6) setSplit(snap);
+      }
+      el.addEventListener('pointerdown', down);
+      el.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+      // 键盘可达性：聚焦后可左右键切换
+      el.tabIndex = 0;
+      el.setAttribute('role', 'slider');
+      el.setAttribute('aria-label', '切换竹知了正向与侧向视角');
+      el.setAttribute('aria-valuemin', '0');
+      el.setAttribute('aria-valuemax', '100');
+      el.addEventListener('keydown', function (e) {
+        var v = parseFloat(el.style.getPropertyValue('--split')) || 50;
+        if (e.key === 'ArrowLeft') { setSplit(v - 8); e.preventDefault(); }
+        else if (e.key === 'ArrowRight') { setSplit(v + 8); e.preventDefault(); }
+        el.setAttribute('aria-valuenow', (parseFloat(el.style.getPropertyValue('--split')) || 50).toFixed(0));
+      });
     })();
   </script>
 </body>

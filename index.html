@@ -3,25 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="竹知了 Blender 5.2 几何节点案例：绳系物理、惯性、弹性、翅膀动画与动作声音触发。">
-  <meta property="og:title" content="竹知了 · 宇宙最好用的开源软件">
-  <meta property="og:description" content="一份能拆、能改、能复用的 Blender 几何节点竹知了。">
+  <meta name="description" content="竹知了 Blender 5.2 几何节点案例：绳系物理、惯性、弹性、翅膀动画与动作声音触发。可拆解、可调参、可复用。">
+  <meta name="theme-color" content="#151816">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="竹知了 · Blender 几何节点案例">
+  <meta property="og:description" content="一根绳子，一只知了，一套可拆的物理。Blender 5.2 Simulation Zone 实景案例。">
   <meta property="og:image" content="hero.png">
+  <meta property="og:url" content="https://yancongya.github.io/zhuzhiliao-blender/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="竹知了 · Blender 几何节点案例">
+  <meta name="twitter:description" content="一根绳子，一只知了，一套可拆的物理。">
+  <meta name="twitter:image" content="hero.png">
   <title>竹知了 · Blender 几何节点案例</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="controls.css">
 </head>
 <body>
+  <a class="skip-link" href="#top">跳到主内容</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
   <header class="nav shell">
     <a class="brand" href="#top" aria-label="返回顶部"><span>竹</span> 竹知了 / Blender</a>
     <nav aria-label="主导航">
-      <a href="#principle">工作原理</a>
-      <a href="#modules">可复用模块</a>
+      <a href="#principle" data-nav>工作原理</a>
+      <a href="#modules" data-nav>可复用模块</a>
+      <a href="#usage" data-nav>怎么用</a>
       <a class="github-link" href="https://github.com/yancongya/zhuzhiliao-blender" target="_blank" rel="noopener" aria-label="查看本仓库源码">
         <svg viewBox="0 0 16 16" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
       </a>
-      <a class="nav-cta" href="zhuzhiliao_rebuild_v1.blend" download>下载 .blend</a>
+      <a class="nav-cta" href="zhuzhiliao_rebuild_v1.blend" download data-blend>下载 .blend</a>
     </nav>
   </header>
 
@@ -29,38 +43,50 @@
     <section class="hero shell">
       <div class="hero-copy">
         <p class="eyebrow">OPEN SOURCE · BLENDER 5.2</p>
-        <h1>宇宙最好用的<br><em>开源软件。</em></h1>
-        <p class="lede">小时候甩着会叫的竹知了，被重新做成了一套可以拆解、调参和复用的几何节点系统。</p>
+        <h1>可以在宇宙第一<br>开源 3D 软件内<br><em>玩竹知了了</em></h1>
+        <p class="lede">小时候甩着会叫的竹知了，被重新做成 Blender 几何节点案例——绳系物理、惯性、弹性、翅膀扇动与动作声音触发，<strong>全部开源</strong>，文件级带走。</p>
         <div class="actions">
-          <a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download>下载最终案例</a>
-          <a class="button secondary" href="https://github.com/imsai-sh/zhuzhiliao">查看参考项目 ↗</a>
+          <a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download data-blend>
+            <span>下载最终案例</span>
+            <small data-size>v1 · 计算中</small>
+          </a>
+          <a class="button secondary" href="#demo" data-nav>在线试一下 ↓</a>
         </div>
         <ul class="facts" aria-label="项目特性">
-          <li><strong>纯节点物理</strong><span>Simulation Zone</span></li>
-          <li><strong>动作发声</strong><span>一次动作，一次触发</span></li>
-          <li><strong>模块可拆</strong><span>资产与案例分离</span></li>
+          <li><strong>纯节点物理</strong><span>Simulation Zone 逐帧积分</span></li>
+          <li><strong>动一下响一次</strong><span>动作边沿触发，不叠音</span></li>
+          <li><strong>模块可拆</strong><span>5 个资产独立带走</span></li>
         </ul>
       </div>
       <figure class="hero-visual">
-        <img src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画">
+        <img src="zhuzhiliao-loop.webp" alt="竹知了通过绳子跟随甩杆摆动的循环动画" loading="eager">
         <figcaption><span>LIVE SIMULATION</span> Blender 透明循环渲染</figcaption>
       </figure>
+    </section>
+
+    <section class="audience shell" aria-label="适合谁">
+      <p class="eyebrow">适合谁</p>
+      <div class="audience-grid">
+        <article><b>想在 Blender 里玩竹知了</b><p>摇一下就响，体会"逐帧记得上一帧"的真物理，而不是播放一段假动画。</p></article>
+        <article><b>想拆节点模块带走</b><p>绳系、惯性、翅膀扇动或动作声音触发，5 个资产直接塞进自己项目。</p></article>
+        <article><b>教学与演示场景</b><p>给学生或观众一个"摇一下就响"的玩具，比讲 PPT 直观得多。</p></article>
+      </div>
     </section>
 
     <section class="marquee" aria-label="核心能力">
       <div>惯性 · 弹性 · 重力 · 刚性绳长 · 翅膀扇动 · 动作声音 · 几何节点 · 惯性 · 弹性 · 重力 · 刚性绳长 · 翅膀扇动 · 动作声音 · 几何节点</div>
     </section>
 
-    <section id="principle" class="section shell">
+    <section id="principle" class="section shell" data-section>
       <header class="section-head">
         <p class="eyebrow">HOW IT WORKS</p>
-        <h2>不是让知了跟着杆走。<br>是让它有自己的脾气。</h2>
+        <h2>不是让知了跟着杆走。<br>是让它有自己的<em>物理脾气</em>。</h2>
       </header>
       <div class="principle-grid">
-        <article class="step dark"><b>01</b><h3>移动锚点</h3><p>甩杆末端只提供动态锚点。跨帧位移形成速度，速度才会产生真正的甩动。</p></article>
-        <article class="step lime"><b>02</b><h3>保存状态</h3><p>Simulation Zone 记住上一帧的位置和速度，逐帧积累惯性，而不是播放一段假动画。</p></article>
-        <article class="step warm"><b>03</b><h3>绳子只拉不推</h3><p>超过绳长才施加回拉；需要时再投影到固定半径，兼顾弹性和可控性。</p></article>
-        <article class="step paper"><b>04</b><h3>一次动作，一次声音</h3><p>声音与节点解耦。摇杆从静止进入运动时触发，持续晃动不叠音，停下后才重新待命。</p></article>
+        <article class="step dark"><b>01</b><h3>移动锚点</h3><p>甩杆末端只提供动态锚点。跨帧位移形成速度，速度才会产生真正的甩动——不是位移驱动位置，是位移驱动惯性。</p></article>
+        <article class="step lime"><b>02</b><h3>保存状态</h3><p>Simulation Zone 记住上一帧的位置和速度，逐帧积累惯性。停手之后，知了还会因为惯性多甩几下才停下。</p></article>
+        <article class="step paper"><b>03</b><h3>绳子只拉不推</h3><p>超过绳长才施加回拉；需要时再投影到固定半径，兼顾弹性和可控性。松弛时不反向推开。</p></article>
+        <article class="step feature warm"><b>04</b><h3>一次动作，一次声音</h3><p>声音与节点解耦。摇杆从静止进入运动时触发一次；持续晃动期间不叠音；静止超过设定时间后，下一次动作才重新待命。</p><small class="step-tag">差异点</small></article>
       </div>
     </section>
 
@@ -69,45 +95,106 @@
         <div>
           <p class="eyebrow">THE LOOP</p>
           <h2>每一帧，都把运动重新算一遍。</h2>
-          <p>摇杆影响锚点，锚点影响绳子，绳子影响速度，速度决定下一帧。翅膀和声音从同一动作获得信号，却保持独立模块。</p>
+          <p>摇杆影响锚点，锚点影响绳子，绳子影响速度，速度决定下一帧。翅膀和声音从同一动作获得信号，却保持独立模块——改一个不连累另一个。</p>
         </div>
-        <div class="flow" role="img" aria-label="摇杆到声音和画面的工作流">
-          <span>摇杆变换</span><i>→</i><span>锚点速度</span><i>→</i><span>弹性与约束</span><i>→</i><span>位置 / 速度</span>
-          <small>↘ 翅膀响应</small><small>↘ 声音边沿触发</small>
+        <svg class="flow-svg" viewBox="0 0 680 270" role="img" aria-label="摇杆到声音和画面的工作流">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#151816"/></marker>
+            <marker id="ah-warm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ff6b3d"/></marker>
+            <marker id="ah-acid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d6ff45"/></marker>
+          </defs>
+          <g font-family="ui-monospace,monospace" font-size="13" font-weight="800" text-anchor="middle">
+            <rect x="8" y="30" width="128" height="54" rx="14" fill="#151816"/>
+            <text x="72" y="62" fill="#fff">摇杆变换</text>
+            <rect x="178" y="30" width="128" height="54" rx="14" fill="#151816"/>
+            <text x="242" y="62" fill="#fff">锚点速度</text>
+            <rect x="348" y="30" width="128" height="54" rx="14" fill="#151816"/>
+            <text x="412" y="62" fill="#fff">弹性与约束</text>
+            <rect x="518" y="30" width="138" height="54" rx="14" fill="#151816"/>
+            <text x="587" y="62" fill="#fff">位置 / 速度</text>
+          </g>
+          <g stroke="#151816" stroke-width="2.5" fill="none" marker-end="url(#ah)">
+            <line x1="136" y1="57" x2="176" y2="57"/>
+            <line x1="306" y1="57" x2="346" y2="57"/>
+            <line x1="476" y1="57" x2="516" y2="57"/>
+          </g>
+          <g fill="none" stroke-width="2.5">
+            <path d="M555 84 C 520 140, 470 150, 470 186" stroke="#ff6b3d" marker-end="url(#ah-warm)"/>
+            <path d="M620 84 C 640 140, 620 150, 620 186" stroke="#d6ff45" marker-end="url(#ah-acid)"/>
+          </g>
+          <text x="395" y="150" font-family="ui-monospace,monospace" font-size="11" font-weight="700" fill="#151816">画面</text>
+          <text x="600" y="150" font-family="ui-monospace,monospace" font-size="11" font-weight="700" fill="#151816">声音</text>
+          <g font-family="ui-monospace,monospace" font-size="12" font-weight="800" text-anchor="middle">
+            <rect x="400" y="188" width="140" height="48" rx="14" fill="#ff6b3d"/>
+            <text x="470" y="217" fill="#fff">翅膀响应</text>
+            <rect x="550" y="188" width="140" height="48" rx="14" fill="#d6ff45"/>
+            <text x="620" y="217" fill="#151816">声音边沿触发</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="demo" class="section shell" data-section>
+      <header class="section-head">
+        <p class="eyebrow">TRY IT</p>
+        <h2>不用打开 Blender，<br>先听一下它响。</h2>
+      </header>
+      <div class="demo-layout">
+        <figure class="demo-shot">
+          <img src="zhuzhiliao-loop.webp" alt="竹知了循环动画演示" loading="lazy">
+          <figcaption>循环动画 · 甩杆 → 绳 → 知了 → 翅膀</figcaption>
+        </figure>
+        <div class="demo-side">
+          <h3>占位鸣叫</h3>
+          <p>这是程序生成的占位声音，模拟"动一下响一次"的边沿触发效果。下载 .blend 后可以换成你拥有使用权的真实录音。</p>
+          <audio controls preload="metadata" src="zhuzhiliao-move.wav" aria-label="竹知了占位鸣叫音频">
+            你的浏览器不支持音频预览。<a href="zhuzhiliao-move.wav">下载试听</a>
+          </audio>
+          <p class="audio-note">14 KB · WAV · 程序生成</p>
         </div>
       </div>
     </section>
 
-    <section class="controls-section shell" id="controls">
-      <header class="section-head compact">
+    <section class="controls-section shell" id="controls" data-section>
+      <header class="section-head">
         <p class="eyebrow">TUNE THE FEEL</p>
-        <h2>不是一个动画文件。<br>是一套可以调手感的系统。</h2>
+        <h2>不是一个动画文件。<br>是一套可以调<em>手感</em>的系统。</h2>
       </header>
       <div class="controls-layout">
-        <figure class="ui-shot"><img src="controls-panel.png" alt="Blender 几何节点修改器控制面板"><figcaption>所有常用参数集中在一个修改器中</figcaption></figure>
+        <figure class="ui-shot"><img src="controls-panel.png" alt="Blender 几何节点修改器控制面板" loading="lazy"><figcaption>所有常用参数集中在一个修改器中</figcaption></figure>
         <div class="parameter-list">
-          <article><b>绳长</b><span>控制活动半径</span><em>0.79 m</em></article>
-          <article><b>重力</b><span>控制下坠和恢复方向</span><em>0.08</em></article>
-          <article><b>刚度 × 弹性</b><span>决定硬绳还是软弹力绳</span><em>55 × 1.0</em></article>
-          <article><b>阻尼</b><span>决定惯性保留多久</span><em>0.30</em></article>
-          <article><b>锁定绳长</b><span>切换弹性约束与固定半径</span><em>ON / OFF</em></article>
-          <article><b>扇动</b><span>独立控制开关、速度与幅度</span><em>7.0 / 20°</em></article>
-          <article><b>声音触发</b><span>动作开始响一次，持续移动不叠音</span><em>阈值 / 冷却</em></article>
+          <article><b>绳长</b><span>控制活动半径</span><em>0.79 m</em><i>≈ 一臂 + 前臂</i></article>
+          <article><b>重力</b><span>控制下坠和恢复方向</span><em>0.08</em><i>轻于地球重力，玩具感</i></article>
+          <article><b>刚度 × 弹性</b><span>决定硬绳还是软弹力绳</span><em>55 × 1.0</em><i>默认偏硬绳</i></article>
+          <article><b>阻尼</b><span>决定惯性保留多久</span><em>0.30</em><i>约 3 秒停下</i></article>
+          <article><b>锁定绳长</b><span>切换弹性约束与固定半径</span><em>ON / OFF</em><i>开 = 真玩具甩动</i></article>
+          <article><b>扇动</b><span>独立控制开关、速度与幅度</span><em>7.0 / 20°</em><i>每秒 7 次，中等幅度</i></article>
+          <article><b>声音触发</b><span>动作开始响一次，持续移动不叠音</span><em>阈值 / 冷却</em><i>避免爆音</i></article>
         </div>
       </div>
     </section>
 
-    <section class="node-proof">
+    <section class="node-proof" data-section>
       <div class="shell node-proof-grid">
-        <div class="node-copy"><p class="eyebrow">LOOK INSIDE</p><h2>力不是猜出来的。<br>每一项都在线路里。</h2><p>弹性绳模块先计算锚点到质点的方向和伸长量，再把刚度、弹性倍率与阻尼组合成回拉加速度，最后叠加重力。模块只有明确的输入与一个加速度输出，因此可以脱离竹知了，在吊坠、尾巴、挂件和摆锤中复用。</p></div>
-        <figure class="node-shot"><img src="node-elastic-rope.png" alt="GN 弹性绳加速度节点组截图"><figcaption>GN_弹性绳加速度 · 16 节点 / 23 条连接</figcaption></figure>
+        <div class="node-copy"><p class="eyebrow">LOOK INSIDE</p><h2>力不是猜出来的。<br>每一项都在<em>节点里</em>。</h2><p>弹性绳模块先计算锚点到质点的方向和伸长量，再把刚度、弹性倍率与阻尼组合成回拉加速度，最后叠加重力。模块只有明确的输入与一个加速度输出，因此可以脱离竹知了，在吊坠、尾巴、挂件和摆锤中复用。</p>
+          <ol class="node-legend" aria-label="节点图编号说明">
+            <li><b>①</b> 锚点位置输入</li>
+            <li><b>②</b> 方向与伸长量计算</li>
+            <li><b>③</b> 刚度 × 弹性 + 阻尼</li>
+            <li><b>④</b> 回拉加速度输出</li>
+          </ol>
+        </div>
+        <figure class="node-shot" data-lightbox="node-elastic-rope-full.png">
+          <img src="node-elastic-rope.png" alt="GN 弹性绳加速度节点组截图" loading="lazy">
+          <figcaption>GN_弹性绳加速度 · 16 节点 / 23 条连接 · 点击放大</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section id="modules" class="section shell">
-      <header class="section-head compact">
+    <section id="modules" class="section shell" data-section>
+      <header class="section-head">
         <p class="eyebrow">REUSABLE BY DESIGN</p>
-        <h2>案例是一整只知了。<br>资产是能带走的办法。</h2>
+        <h2>案例是一整只知了。<br>资产是能带走的<em>办法</em>。</h2>
       </header>
       <div class="modules-layout">
         <div class="module-list">
@@ -117,41 +204,138 @@
           <article class="reveal"><span>GN</span><div class="mod"><h3>翅膀扇动</h3><small>独立启停 / 速度 / 幅度，与绳解算完全解耦</small></div><p>独立控制启停、速度与幅度。</p></article>
           <article class="reveal"><span>PY</span><div class="mod"><h3>声音触发器</h3><small>读取甩杆变换：静止→运动触发一次，持续不叠音</small></div><p>识别新动作，避免连续叠音。</p></article>
         </div>
-        <figure class="node-shot overview-shot"><img src="nodes-overview.png" alt="竹知了几何节点总览"><figcaption>节点总览 · Simulation Zone 主线</figcaption></figure>
+        <figure class="node-shot overview-shot" data-lightbox="nodes-overview.png">
+          <img src="nodes-overview.png" alt="竹知了几何节点总览" loading="lazy">
+          <figcaption>节点总览 · Simulation Zone 主线 · 点击放大</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section id="usage" class="section shell">
-      <header class="section-head compact">
+    <section id="usage" class="section shell" data-section>
+      <header class="section-head">
         <p class="eyebrow">HOW TO USE</p>
         <h2>下载，打开，甩起来。</h2>
       </header>
       <div class="usage-grid">
-        <article class="step reveal"><b>01</b><h3>打开案例</h3><p>下载 .blend，用 Blender 5.2 或更新版本打开「物理竹知了」物体。</p></article>
-        <article class="step reveal"><b>02</b><h3>摇动甩杆</h3><p>选中甩杆，保持 X 轴约 90°，旋转本地 Z 或给它打关键帧。</p></article>
-        <article class="step reveal"><b>03</b><h3>播放调参</h3><p>播放时间轴让 Simulation Zone 逐帧计算惯性；在修改器中调整绳长、重力、刚度、阻尼与扇动。</p></article>
-        <article class="step reveal"><b>04</b><h3>触发声音</h3><p>需要实时声音时，在文本编辑器运行一次「知了_声音触发模块」，到控制器里换音效与阈值。</p></article>
+        <article class="step reveal paper"><b>01</b><h3>打开案例</h3><p>下载 .blend，用 Blender 5.2 或更新版本打开「物理竹知了」物体。</p></article>
+        <article class="step reveal paper"><b>02</b><h3>摇动甩杆</h3><p>选中甩杆，保持 X 轴约 90°，旋转本地 Z 或给它打关键帧。</p></article>
+        <article class="step reveal paper"><b>03</b><h3>播放调参</h3><p>播放时间轴让 Simulation Zone 逐帧计算惯性；在修改器中调整绳长、重力、刚度、阻尼与扇动。</p></article>
+        <article class="step reveal paper"><b>04</b><h3>触发声音</h3><p>需要实时声音时，在文本编辑器运行一次「知了_声音触发模块」，到控制器里换音效与阈值。</p></article>
       </div>
-      <div class="usage-cta"><a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download>下载最终案例</a></div>
+      <div class="usage-cta"><a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download data-blend><span>下载最终案例</span><small data-size>v1 · 计算中</small></a></div>
     </section>
 
-    <section class="credit shell">
+    <section class="credit shell" data-section>
       <div><p class="eyebrow">REFERENCE & CREDIT</p><h2>从浏览器里的竹知了，<br>走进 Blender 的节点世界。</h2></div>
       <div><p>玩具主题、交互方向与物理说明参考开源展示项目 <a href="https://github.com/imsai-sh/zhuzhiliao">imsai-sh/zhuzhiliao ↗</a>。本项目没有复制其真实录音或 Web 源码，Blender 模型、节点系统与声音模块均为独立实现。</p><p class="legal">参考仓库当前未提供独立 LICENSE 文件；使用其内容前请自行确认授权。</p></div>
     </section>
 
-    <section class="final-cta">
+    <section class="final-cta" data-section>
       <div class="shell">
         <p class="eyebrow">DOWNLOAD · OPEN · SHAKE</p>
-        <h2>把它甩起来。</h2>
-        <a class="button primary inverted" href="zhuzhiliao_rebuild_v1.blend" download>下载 Blender 最终案例</a>
+        <h2>打开 .blend，<br>听它响第一声。</h2>
+        <a class="button primary inverted" href="zhuzhiliao_rebuild_v1.blend" download data-blend><span>下载 Blender 最终案例</span><small data-size>v1 · 计算中</small></a>
       </div>
     </section>
   </main>
 
-  <footer class="shell"><span>竹知了 Blender Case · 2026</span><a href="README.md">README</a></footer>
+  <footer class="shell">
+    <span>竹知了 Blender Case · 2026 · v1</span>
+    <nav class="footer-nav" aria-label="页脚导航">
+      <a href="README.md">README</a>
+      <a href="LICENSE">MIT License</a>
+      <a href="https://github.com/yancongya/zhuzhiliao-blender" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="compat">Blender 5.2+</span>
+    </nav>
+  </footer>
+
+  <dialog id="lightbox" aria-label="图片放大查看">
+    <img id="lightboxImg" alt="">
+    <button id="lightboxClose" aria-label="关闭">×</button>
+  </dialog>
+
   <script>
     document.documentElement.classList.add('js');
+
+    // 1. 滚动进度条
+    (function () {
+      var bar = document.getElementById('progressBar');
+      if (!bar) return;
+      function update() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        bar.style.width = p + '%';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // 2. 章节高亮
+    (function () {
+      var sections = document.querySelectorAll('[data-section]');
+      var navLinks = document.querySelectorAll('[data-nav]');
+      if (!('IntersectionObserver' in window) || !sections.length) return;
+      var map = {};
+      navLinks.forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (href && href.indexOf('#') === 0) map[href.slice(1)] = a;
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            navLinks.forEach(function (a) { a.classList.remove('active'); });
+            if (map[id]) map[id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(function (s) { if (s.id) io.observe(s); });
+    })();
+
+    // 3. 文件大小回填下载按钮
+    (function () {
+      var blends = document.querySelectorAll('[data-blend]');
+      if (!blends.length) return;
+      blends.forEach(function (el) {
+        var sizeEl = el.querySelector('[data-size]');
+        if (!sizeEl) return;
+        fetch('zhuzhiliao_rebuild_v1.blend', { method: 'HEAD' }).then(function (r) {
+          var len = r.headers.get('Content-Length');
+          if (!len) throw new Error('no length');
+          var kb = Math.round(parseInt(len, 10) / 1024);
+          sizeEl.textContent = 'v1 · ' + (kb < 1024 ? kb + ' KB' : (kb / 1024).toFixed(1) + ' MB');
+        }).catch(function () {
+          sizeEl.textContent = 'v1 · 176 KB';
+        });
+      });
+    })();
+
+    // 4. 节点图 lightbox
+    (function () {
+      var triggers = document.querySelectorAll('[data-lightbox]');
+      var dlg = document.getElementById('lightbox');
+      var img = document.getElementById('lightboxImg');
+      var close = document.getElementById('lightboxClose');
+      if (!triggers.length || !dlg || typeof dlg.showModal !== 'function') return;
+      triggers.forEach(function (fig) {
+        fig.addEventListener('click', function () {
+          var src = fig.getAttribute('data-lightbox');
+          var inner = fig.querySelector('img');
+          img.src = src;
+          img.alt = inner ? inner.alt : '';
+          dlg.showModal();
+        });
+        fig.style.cursor = 'zoom-in';
+      });
+      function shut() { if (dlg.open) dlg.close(); }
+      close.addEventListener('click', shut);
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+    })();
+
+    // 5. reveal 滚入动画
     (function () {
       var els = document.querySelectorAll('.reveal');
       if (!('IntersectionObserver' in window)) {

@@ -109,13 +109,30 @@
         <p class="eyebrow">REUSABLE BY DESIGN</p>
         <h2>案例是一整只知了。<br>资产是能带走的办法。</h2>
       </header>
-      <div class="module-list">
-        <article><span>GN</span><h3>锚点速度</h3><p>从跨帧位置变化提取速度。</p></article>
-        <article><span>GN</span><h3>弹性绳加速度</h3><p>计算只拉不推的回弹作用力。</p></article>
-        <article><span>GN</span><h3>可选刚性绳约束</h3><p>一键切换自由绳长和固定半径。</p></article>
-        <article><span>GN</span><h3>翅膀扇动</h3><p>独立控制启停、速度与幅度。</p></article>
-        <article><span>PY</span><h3>声音触发器</h3><p>识别新动作，避免连续叠音。</p></article>
+      <div class="modules-layout">
+        <div class="module-list">
+          <article class="reveal"><span>GN</span><div class="mod"><h3>锚点速度</h3><small>跨帧位置差 → 速度，只供下游读取</small></div><p>从跨帧位置变化提取速度。</p></article>
+          <article class="reveal"><span>GN</span><div class="mod"><h3>弹性绳加速度</h3><small>锚点方向与伸长量 → 刚度×弹性 + 阻尼 = 回拉加速度</small></div><p>计算只拉不推的回弹作用力。</p></article>
+          <article class="reveal"><span>GN</span><div class="mod"><h3>可选刚性绳约束</h3><small>开关切换自由绳长与固定半径（投影）</small></div><p>一键切换自由绳长和固定半径。</p></article>
+          <article class="reveal"><span>GN</span><div class="mod"><h3>翅膀扇动</h3><small>独立启停 / 速度 / 幅度，与绳解算完全解耦</small></div><p>独立控制启停、速度与幅度。</p></article>
+          <article class="reveal"><span>PY</span><div class="mod"><h3>声音触发器</h3><small>读取甩杆变换：静止→运动触发一次，持续不叠音</small></div><p>识别新动作，避免连续叠音。</p></article>
+        </div>
+        <figure class="node-shot overview-shot"><img src="nodes-overview.png" alt="竹知了几何节点总览"><figcaption>节点总览 · Simulation Zone 主线</figcaption></figure>
       </div>
+    </section>
+
+    <section id="usage" class="section shell">
+      <header class="section-head compact">
+        <p class="eyebrow">HOW TO USE</p>
+        <h2>下载，打开，甩起来。</h2>
+      </header>
+      <div class="usage-grid">
+        <article class="step reveal"><b>01</b><h3>打开案例</h3><p>下载 .blend，用 Blender 5.2 或更新版本打开「物理竹知了」物体。</p></article>
+        <article class="step reveal"><b>02</b><h3>摇动甩杆</h3><p>选中甩杆，保持 X 轴约 90°，旋转本地 Z 或给它打关键帧。</p></article>
+        <article class="step reveal"><b>03</b><h3>播放调参</h3><p>播放时间轴让 Simulation Zone 逐帧计算惯性；在修改器中调整绳长、重力、刚度、阻尼与扇动。</p></article>
+        <article class="step reveal"><b>04</b><h3>触发声音</h3><p>需要实时声音时，在文本编辑器运行一次「知了_声音触发模块」，到控制器里换音效与阈值。</p></article>
+      </div>
+      <div class="usage-cta"><a class="button primary" href="zhuzhiliao_rebuild_v1.blend" download>下载最终案例</a></div>
     </section>
 
     <section class="credit shell">
@@ -133,5 +150,24 @@
   </main>
 
   <footer class="shell"><span>竹知了 Blender Case · 2026</span><a href="README.md">README</a></footer>
+  <script>
+    document.documentElement.classList.add('js');
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </body>
 </html>

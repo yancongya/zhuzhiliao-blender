@@ -1,0 +1,20 @@
+[
+  {
+    "name": "蝉体",
+    "hide": true,
+    "verts": 3810,
+    "polys": 3634
+  },
+  {
+    "name": "甩杆",
+    "hide": true,
+    "verts": 1130,
+    "polys": 1170
+  },
+  {
+    "name": "装配",
+    "hide": false,
+    "verts": 4964,
+    "polys": 4816
+  }
+]

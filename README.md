@@ -11,7 +11,7 @@
 
 下载 [`zhuzhiliao_rebuild_v1.blend`](zhuzhiliao_rebuild_v1.blend)，使用 Blender 5.2 或更新版本打开。
 
-仓库只发布当前确认的最终案例，不提交实验版本、过程备份和临时分析文件。
+仓库根目录只发布当前确认的最终案例与落地页；历史实验版本统一归入 `versions/`，过程分析、构建计划与效果规格归入 `docs/`，与交付物分离，便于追溯又不污染根目录。
 
 ## 怎么玩
 
@@ -92,7 +92,7 @@ Geometry Nodes 负责画面和物理，Python 模块负责实时声音。脚本�
 ```text
 .
 ├── index.html                       # GitHub Pages 落地页
-├── styles.css                      # 页面样式
+├── styles.css / controls.css        # 页面样式
 ├── hero.png                        # Blender 实际渲染封面
 ├── zhuzhiliao-loop.webp            # 透明循环展示动画 · 正向视角
 ├── zhuzhiliao-loop-b.webp          # 透明循环展示动画 · 侧向视角
@@ -101,6 +101,8 @@ Geometry Nodes 负责画面和物理，Python 模块负责实时声音。脚本�
 ├── zhuzhiliao_rebuild_v1.blend     # 唯一发布的最终案例
 ├── zhuzhiliao_sound_trigger.py     # 实时声音触发模块
 ├── zhuzhiliao-move.wav             # 可替换的占位声音
+├── versions/                       # 历史实验版本 .blend（before_* / geometry_nodes*）
+├── docs/                           # 过程分析、构建计划与效果规格
 └── README.md
 ```
 

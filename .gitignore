@@ -20,3 +20,15 @@
 !icon-512.png
 !node-elastic-rope-full.png
 !zhuzhiliao-loop-b.webp
+
+# 历史实验版本与过程文档（已按文件夹整理纳入仓库）
+!versions/
+!versions/*.blend
+!docs/
+!docs/*.md
+!docs/*.json
+
+# 工具 / 浏览器自动化产物（本地缓存，不入库）
+.omo/
+.playwright-cli/
+output/

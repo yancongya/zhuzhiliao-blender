@@ -1,0 +1,78 @@
+{
+  "schema": "hotnode-effect-spec/v1",
+  "request_id": "zzl-gn-20260804-001",
+  "request_type": "reference_reconstruction",
+  "target_tree_types": ["GeometryNodeTree", "ShaderNodeTree", "Object"],
+  "observations": [
+    {"id": "obs-001", "statement": "模型比例基准为筒身高度 = 1 个单位，按实物三视图逐像素测量。", "evidence_ref": "zhuzhiliao/3d/model.js#L1-L5", "confidence": 1.0},
+    {"id": "obs-002", "statement": "模型根 zhuzhiliao-3d 下分两大总成：body-assembly（pos 0,1.0,0，蝉体，枢轴在鼓面绳孔）与 handle-assembly（pos 0.63,0,0，甩杆，rotZ -0.008）。body-frame 在 body-assembly 下 pos 0,-1.0,0，故 body 实际世界坐标等于 root 坐标。", "evidence_ref": "zhuzhiliao/3d/model.js#L198-L200,#L249", "confidence": 1.0},
+    {"id": "obs-003", "statement": "筒身 tube-shell 为开口圆柱：CylinderGeometry(0.334, 0.334, 0.90, 48, 1, true)，pos(0, 0.45, 0)。", "evidence_ref": "zhuzhiliao/3d/model.js#L202-L206", "confidence": 1.0},
+    {"id": "obs-004", "statement": "红漆顶圈 rim-cap 为车削环（LatheGeometry，7 控制点带倒角）：rOut 0.344 / rIn 0.318 / height 0.107 / chamfer 0.006，红漆材质，pos(0, 0.893, 0)。", "evidence_ref": "zhuzhiliao/3d/model.js#L141-L153,#L210", "confidence": 1.0},
+    {"id": "obs-005", "statement": "竹膜 membrane-top 为薄圆柱：CylinderGeometry(0.318, 0.318, 0.02, 48)，pos(0, 0.982, 0)，竹膜材质；发声时 emissiveIntensity = active * 0.85（透光）。", "evidence_ref": "zhuzhiliao/3d/model.js#L212-L213,#L356-L358", "confidence": 1.0},
+    {"id": "obs-006", "statement": "眼睛 eye-left/right 为球 r0.042，方位角 ±30.5°、高度 y=0.80，故坐标 (±0.334*sin30.5°, 0.80, 0.334*cos30.5°) = (±0.170, 0.80, 0.288)。", "evidence_ref": "zhuzhiliao/3d/model.js#L220-L225", "confidence": 1.0},
+    {"id": "obs-007", "statement": "翅膀为椭圆薄片挤出+拱面：halfW 0.15 / halfL 0.51 / thick 0.024 / camber 0.04，铰点 pivot pos(±0.14, 0.76, 0.29)，pivot rot(0.17, ∓0.04, ±0.085)。", "evidence_ref": "zhuzhiliao/3d/model.js#L113-L126,#L227-L240", "confidence": 1.0},
+    {"id": "obs-008", "statement": "脚 foot-left/right 为圆头楔形挤出：len 0.17 / w 0.10 / h 0.05，pos(±0.155, 0.012, 0.19)，rotY(∓0.42)。", "evidence_ref": "zhuzhiliao/3d/model.js#L128-L139,#L242-L246", "confidence": 1.0},
+    {"id": "obs-009", "statement": "甩杆 stick-shaft 为圆柱 r 0.037→0.038、h 2.12，pos(0, 0.44, 0)；顶珠 knob-sphere-top r0.101 pos(0,1.782,0)；琥珀隔珠 spacer-rondelle r0.055 scaleY0.6 pos(0,1.625,0)；底珠 knob-sphere-lower r0.091 pos(0,1.489,0)。", "evidence_ref": "zhuzhiliao/3d/model.js#L250-L257", "confidence": 1.0},
+    {"id": "obs-010", "statement": "松香线为两点间圆管 TubeGeometry(curve, 48, 0.0065, 6)，连接 membrane-center socket(0.24,1.0,0) 与 stick-waist socket(0.61,1.70,0)；依三视图走线为入鼓近垂直下坠、近珠串外弯。", "evidence_ref": "zhuzhiliao/3d/model.js#L216-L218,#L258-L260,#L265-L296", "confidence": 1.0},
+    {"id": "obs-011", "statement": "材质含程序化竹纹（Canvas 2D 生成 170 条竖向条纹+9 条深色 streak+横向渐变）、红漆、亮黑、琥珀、线、暗木、半透竹膜；全部无外部贴图资源。", "evidence_ref": "zhuzhiliao/3d/model.js#L8-L110", "confidence": 1.0},
+    {"id": "obs-012", "statement": "动画接口：drivePose({stick,tube,headAngle,spin,tilt,stickTilt,wingL,wingR,sag}) 每帧摆位姿；setSing(active) 控制鼓面透光；tick/whirl 负责静置摆动与甩动公转。", "evidence_ref": "zhuzhiliao/3d/model.js#L324-L383", "confidence": 1.0},
+    {"id": "obs-013", "statement": "whirl 模式下蝉体被绷紧的线拉着绕杆头公转：半径 R=0.92、角速度 w=4.2、body 外倾 0.5rad、面向行进方向；翅膀高频振翅（34Hz 幅 0.35）。", "evidence_ref": "zhuzhiliao/3d/model.js#L366-L376,#L363-L366", "confidence": 0.95},
+    {"id": "obs-014", "statement": "物理事实源：竹筒为绳系质点（重力+只拉不推弹性绳+空气阻力），发声核心变量是绳方向角速度，低于约 1.1 圈/秒或绳未张紧不发声。", "evidence_ref": "zhuzhiliao/README.md#L50-L54", "confidence": 0.95}
+  ],
+  "inferences": [
+    {"id": "inf-001", "statement": "筒身/鼓面/甩杆/珠均为旋转体或球体，几何节点可用 Mesh Cylinder / Mesh UV Sphere 直接参数化生成（Fill Caps 控制开口）。", "confidence": 0.98},
+    {"id": "inf-002", "statement": "红漆顶圈为带倒角旋转环，几何节点可用一条轮廓曲线（半径/高度控制点）+ Screw（Angle=2π）车削实现，倒角由轮廓首末点偏移给出。", "confidence": 0.95},
+    {"id": "inf-003", "statement": "翅膀为椭圆薄片+挤出+拱面，几何节点可用 Plane/Grid(细分)→Scale(0.15,0.51)→Solidify(thickness 0.024)→Set Position(按 x,y 拱面公式) 实现。", "confidence": 0.9},
+    {"id": "inf-004", "statement": "松香线为两点间圆管，几何节点可用 Curve Line(两端点)+ Curve Circle(半径 0.0065 profile)+ Curve to Mesh 扫描生成，端点作为 Group Input 或驱动。", "confidence": 0.95},
+    {"id": "inf-005", "statement": "竹纹可在材质/几何节点层用 Noise + 竖向条纹程序化生成，无需导入外部贴图，符合原项目零资源约束。", "confidence": 0.9},
+    {"id": "inf-006", "statement": "整体是单一参数化程序模型，适合用单一 GeometryNodeTree 主组程序化生成全部部件后经 Join Geometry 装配，便于参数暴露与复用。", "confidence": 0.95},
+    {"id": "inf-007", "statement": "发声透光 = 竹膜 emissiveIntensity 随 active，几何节点可暴露“发声强度”输入，经 Set Material 或独立发光材质输出驱动。", "confidence": 1.0},
+    {"id": "inf-008", "statement": "翅膀下垂外张与铰链角由外部动力学给出，几何节点暴露“翅膀角”输入并对翅膀子组做 Rotate/Transform（铰点设在 pivot 处）。", "confidence": 0.95},
+    {"id": "inf-009", "statement": "公转/自旋/倾斜可由主组输入（公转角/半径/速度）在几何节点内用 Transform/Rotate 实现，对应 whirl 模式；静置摆动可用 Scene Time 驱动小正弦。", "confidence": 0.9}
+  ],
+  "modules": [
+    {"id": "M1", "purpose": "旋转体主体：筒身（开口圆柱）、筒底圆片、竹膜薄筒、甩杆杆身、顶珠/底珠/琥珀隔珠。", "tree_type": "GeometryNodeTree", "depends_on": []},
+    {"id": "M2", "purpose": "红漆顶圈车削：轮廓曲线 + Screw(360°) 生成带倒角旋转环。", "tree_type": "GeometryNodeTree", "depends_on": ["M1"]},
+    {"id": "M3", "purpose": "附件实例：眼睛 ×2（按方位角定位）、脚 ×2（楔形）、绳结小球。", "tree_type": "GeometryNodeTree", "depends_on": ["M1"]},
+    {"id": "M4", "purpose": "翅膀：椭圆薄片 + 挤出 + 拱面 + 铰链旋转。", "tree_type": "GeometryNodeTree", "depends_on": ["M1"]},
+    {"id": "M5", "purpose": "松香线管：Curve Line + Curve Circle + Curve to Mesh，端点可调。", "tree_type": "GeometryNodeTree", "depends_on": ["M1"]},
+    {"id": "M6", "purpose": "程序化竹纹材质：Noise + 竖向条纹 + 渐变，红漆/亮黑/琥珀/竹膜等材质组。", "tree_type": "ShaderNodeTree", "depends_on": []},
+    {"id": "M7", "purpose": "主装配与驱动：Join 全部部件 + Transform 层级 + 暴露尺寸/姿态/动画/发声输入。", "tree_type": "GeometryNodeTree", "depends_on": ["M1", "M2", "M3", "M4", "M5", "M6"]}
+  ],
+  "required_inputs": [
+    {"name": "筒身半径", "socket_type": "Float", "required": true, "semantic": "tube radius, default 0.334"},
+    {"name": "筒身高度", "socket_type": "Float", "required": true, "semantic": "tube height, default 0.90"},
+    {"name": "甩杆位置X", "socket_type": "Float", "required": true, "semantic": "handle x, default 0.63"},
+    {"name": "甩杆倾角", "socket_type": "Float", "required": false, "semantic": "stick tilt, default -0.008"},
+    {"name": "翅膀角", "socket_type": "Float", "required": true, "semantic": "wing hinge angle, default 0.17"},
+    {"name": "公转角度", "socket_type": "Float", "required": false, "semantic": "whirl angle, default 0"},
+    {"name": "公转半径", "socket_type": "Float", "required": false, "semantic": "whirl radius, default 0.92"},
+    {"name": "绳下端", "socket_type": "Vector", "required": true, "semantic": "membrane-center socket"},
+    {"name": "绳上端", "socket_type": "Vector", "required": true, "semantic": "stick-waist socket"},
+    {"name": "发声强度", "socket_type": "Float", "required": false, "semantic": "sing active 0..1, drives membrane glow"}
+  ],
+  "required_outputs": [
+    {"name": "模型几何", "socket_type": "Geometry", "required": true, "semantic": "full assembled zhuzhiliao geometry"},
+    {"name": "竹纹材质", "socket_type": "Material", "required": false, "semantic": "optional procedural bamboo material"}
+  ],
+  "animation": {
+    "mode_idle": "静置：handle 微摆 sin(t*0.8)*0.01，body 微摆 sin(t*0.6)*0.006，翅膀呼吸 sin(t*2.1)*0.02。",
+    "mode_whirl": "蝉体绕杆头公转 R=0.92 w=4.2，body 外倾 0.5，翅膀高频振翅 34Hz 幅 0.35；绳随两端点重建。",
+    "driven": "外部物理接管：stick/tube 位置、headAngle、spin、tilt、stickTilt、wingL/R、sag 由主站传入。",
+    "sing": "发声强度 -> 竹膜 emissiveIntensity = active*0.85。"
+  },
+  "acceptance_criteria": [
+    {"id": "geo-001", "kind": "geometry", "requirement": "evaluate 后顶点数>0，孤岛数≈13（筒身/底/顶圈/膜/绳结/眼×2/翅×2/脚×2/杆/顶珠/隔珠/底珠/绳），包围盒尺寸与 model.js 一致。", "evidence_required": true},
+    {"id": "vis-001", "kind": "visual", "requirement": "比例与实物三视图一致：筒身 r0.334 h0.90，红顶圈带可见倒角，翅膀自铰点下垂且梢部外张。", "evidence_required": true},
+    {"id": "vis-002", "kind": "visual", "requirement": "亮黑眼位于 ±30.5°/y0.80，琥珀隔珠在杆身中段且压扁，红漆顶圈/顶珠/底珠位置正确。", "evidence_required": true},
+    {"id": "int-001", "kind": "interface", "requirement": "筒身半径/高度、甩杆位置/倾角、翅膀角、绳两端点、发声强度为可调 Group Input。", "evidence_required": false},
+    {"id": "ani-001", "kind": "animation", "requirement": "调公转角→蝉体绕杆头转；调翅膀角→翅膀张合；调发声强度→竹膜透光。", "evidence_required": true},
+    {"id": "str-001", "kind": "structural", "requirement": "节点按 M1..M7 分帧，重复逻辑（如旋转体/球）提取为子节点组，命名用 GN_ 前缀。", "evidence_required": false}
+  ],
+  "knowledge_refs": [
+    "zhuzhiliao/3d/model.js",
+    "zhuzhiliao/README.md",
+    "zhuzhiliao/CLAUDE.md",
+    "zhuzhiliao/3d/boot3d.js"
+  ]
+}
